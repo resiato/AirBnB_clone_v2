@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 import models
 from models.base_model import BaseModel, Base
 from models.city import City
+from os import getenv
 
 
 class Place(BaseModel, Base):
@@ -34,3 +35,13 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        reviews = relationship('Review', backref='place',
+                               cascade='all, delete-orphan')
+    else:
+        @property
+        def reviews(self):
+            """Getter attribute in case of file storage"""
+            return [review for review in models.storage.all(Review)
+                    if review.place_id == self.id]

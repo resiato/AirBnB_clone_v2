@@ -42,7 +42,7 @@ class DBStorage():
             objs += self.__session.query(User).all()
             objs += self.__session.query(Place).all()
             # objs = self.__session.query(Amenity).all()
-            # objs += self.__session.query(Review).all()
+            objs += self.__session.query(Review).all()
 
         dic = {}
         for obj in objs:
