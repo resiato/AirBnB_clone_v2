@@ -19,10 +19,8 @@ class State(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship('City', backref='state',
                               cascade='all, delete-orphan')
-    elif getenv('HBNB_TYPE_STORAGE') == 'file':
-        cities = city()
     else:
-        print("Unknown database type")
+        cities = city()
 
     @property
     def city(self):
