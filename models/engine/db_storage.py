@@ -36,7 +36,8 @@ class DBStorage():
         if cls:
             objs = self.__session.query(cls)
         else:
-            objs = self.__session.query(User, State, City, Amenity, Place, Review).all()
+            objs = self.__session.query(User, State, City,
+                                        Amenity, Place, Review).all()
 
         dic = {}
         for obj in objs:
