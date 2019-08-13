@@ -45,11 +45,11 @@ class BaseModel:
             returns a string of class name, id, and dictionary
         """
         dic = self.to_dict()
-        del dic['__class__']
-        dic['created_at'] = datetime.strptime(dic['created_at'],
-                                              "%Y-%m-%dT%H:%M:%S")
-        dic['updated_at'] = datetime.strptime(dic['updated_at'],
-                                              "%Y-%m-%dT%H:%M:%S")
+        # del dic['__class__']
+        # dic['created_at'] = datetime.strptime(dic['created_at'],
+        #                                       "%Y-%m-%dT%H:%M:%S")
+        # dic['updated_at'] = datetime.strptime(dic['updated_at'],
+        #                                       "%Y-%m-%dT%H:%M:%S")
         return "[{}] ({}) {}".format(
             type(self).__name__, self.id, dic)
 
