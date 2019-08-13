@@ -64,10 +64,10 @@ class BaseModel:
         Return:
             returns a dictionary of all the key values in __dict__
         """
-        my_dict = dict(self.__dict__)
-        my_dict["__class__"] = str(type(self).__name__)
-        my_dict["created_at"] = self.created_at.isoformat()
-        my_dict["updated_at"] = self.updated_at.isoformat()
+        my_dict = self.__dict__.copy()
+        my_dict["__class__"] = type(self).__name__
+        my_dict["created_at"] = my_dict["created_at"].isoformat()
+        my_dict["updated_at"] = my_dict["updated_at"].isoformat()
         if '_sa_instance_state' in my_dict.keys():
             my_dict.pop('_sa_instance_state', None)
         return my_dict

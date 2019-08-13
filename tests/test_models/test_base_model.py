@@ -2,8 +2,13 @@
 """test for BaseModel"""
 import unittest
 import os
+from os import getenv
+from models import storage
 from models.base_model import BaseModel
+from models.state import State
 import pep8
+import MySQLdb
+import datetime
 
 
 class TestBaseModel(unittest.TestCase):
@@ -15,11 +20,17 @@ class TestBaseModel(unittest.TestCase):
         cls.base = BaseModel()
         cls.base.name = "Kev"
         cls.base.num = 20
+        cls.db = MySQLdb.connect(getenv("HBNB_MYSQL_HOST"),
+                             getenv("HBNB_MYSQL_USER"),
+                             getenv("HBNB_MYSQL_PWD"),
+                             getenv("HBNB_MYSQL_DB"))
+        cls.cursor = cls.db.cursor()
 
     @classmethod
     def teardown(cls):
         """at the end of the test this will tear it down"""
         del cls.base
+        self.db.close()
 
     def tearDown(self):
         """teardown"""
@@ -47,12 +58,15 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(BaseModel, "__init__"))
         self.assertTrue(hasattr(BaseModel, "save"))
         self.assertTrue(hasattr(BaseModel, "to_dict"))
+        self.assertTrue(hasattr(BaseModel, "delete"))
 
     def test_init_BaseModel(self):
         """test if the base is an type BaseModel"""
         self.assertTrue(isinstance(self.base, BaseModel))
 
-    def test_save_BaesModel(self):
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', "can't run if\
+                     storage is set to file")
+    def test_save_BaseModel(self):
         """test if the save works"""
         self.base.save()
         self.assertNotEqual(self.base.created_at, self.base.updated_at)
@@ -64,6 +78,34 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file', "can't run if\
+                     storage is set to file")
+    def test_attributes_v2_BaseModel(self):
+        """Test the attributes from the v2"""
+        attributes = storage.attributes()["BaseModel"]
+        o = BaseModel()
+        for k, v in attributes.items():
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v) 
+
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file', "can't run if\
+                     storage is set to file")
+    def test_to_dict_v2_BaseModel(self):
+        """Test the to_dict() method v2"""
+        base_dict = self.base.to_dict()
+        self.assertFalse('_sa_instance_state' in base_dict.keys())
+
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file', "can't run if\
+                     storage is set to file")
+    def test_delete_v2(self):
+        """Test the delete() method v2"""
+        s = State()
+        s.name = 'California'
+        s.save()
+        nb = self.cursor.execute("SELECT COUNT(*) FROM states;")
+        s.delete()
+        nb1 = self.cursor.execute("SELECT COUNT(*) FROM states;")
+        self.assertEqual(nb - nb1, 1)
 
 if __name__ == "__main__":
     unittest.main()
