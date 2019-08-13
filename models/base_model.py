@@ -45,7 +45,7 @@ class BaseModel:
             returns a string of class name, id, and dictionary
         """
         return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.__dict__)
+            type(self).__name__, self.id, self.to_dict())
 
     def __repr__(self):
         """return a string representaion
@@ -69,7 +69,7 @@ class BaseModel:
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
         if '_sa_instance_state' in my_dict.keys():
-            del my_dict['_sa_instance_state']
+            my_dict.pop('_sa_instance_state', None)
         return my_dict
 
     def delete(self):

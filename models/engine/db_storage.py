@@ -36,8 +36,12 @@ class DBStorage():
         if cls:
             objs = self.__session.query(cls)
         else:
-            objs = self.__session.query(User, State, City,
-                                        Amenity, Place, Review).all()
+            objs = self.__session.query(State).all()
+            objs += self.__session.query(City).all()
+            # objs += self.__session.query(User).all()
+            # objs = self.__session.query(Amenity).all()
+            # objs += self.__session.query(Place).all()
+            # objs += self.__session.query(Review).all()
 
         dic = {}
         for obj in objs:
@@ -48,7 +52,11 @@ class DBStorage():
     def new(self, obj):
         """Add the object to the current
         database session (self.__session)"""
-        self.__session.add(obj)
+        dic = obj.to_dict()
+        cls = dic['__class__']
+        dic.pop('__class__', None)
+        o = eval(cls)(**dic)
+        self.__session.add(o)
 
     def save(self):
         """Commit all changes of the current
