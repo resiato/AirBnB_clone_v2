@@ -101,14 +101,13 @@ class TestBaseModel(unittest.TestCase):
         """Test the delete() method v2"""
         s = State()
         s.name = 'California'
+        s.save()
         nb = self.cursor.execute("SELECT COUNT(*) FROM states;")
         print(nb)
-        storage.reload()
         s.delete()
-        storage.reload()
-        # s.save()
-        # nb1 = self.cursor.execute("SELECT COUNT(*) FROM states;")
-        # self.assertEqual(nb - nb1, 1)
+        nb1 = self.cursor.execute("SELECT COUNT(*) FROM states;")
+        print(nb1)
+        self.assertEqual(nb - nb1, 1)
 
 if __name__ == "__main__":
     unittest.main()
