@@ -81,28 +81,20 @@ class HBNBCommand(cmd.Cmd):
             IndexError: when there is no id given
             KeyError: when there is no valid id given
         """
-        try:
-            if not line:
-                raise SyntaxError()
-            my_list = line.split(" ")
-            if my_list[0] not in self.all_classes:
-                raise NameError()
-            if len(my_list) < 2:
-                raise IndexError()
-            objects = storage.all()
-            key = my_list[0] + '.' + my_list[1]
-            if key in objects:
-                print(objects[key])
-            else:
-                raise KeyError()
-        except SyntaxError:
+        if line == "" or line is None:
             print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
-        except IndexError:
-            print("** instance id missing **")
-        except KeyError:
-            print("** no instance found **")
+        else:
+            words = line.split(' ')
+            if words[0] not in storage.classes():
+                print("** class doesn't exist **")
+            elif len(words) < 2:
+                print("** instance id missing **")
+            else:
+                key = "{}.{}".format(words[0], words[1])
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[key])
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id

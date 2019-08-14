@@ -105,7 +105,7 @@ class TestFileStorage(unittest.TestCase):
         storage.save()
         states = storage.all(State)
         self.assertIsNotNone(states)
-        self.assertEqual(type(states), dict) 
+        self.assertEqual(type(states), dict)
         storage.delete(new_state)
         states = storage.all(State)
         self.assertEqual(states, {})

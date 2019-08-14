@@ -88,7 +88,7 @@ class TestBaseModel(unittest.TestCase):
         o = BaseModel()
         for k, v in attributes.items():
             self.assertTrue(hasattr(o, k))
-            self.assertEqual(type(getattr(o, k, None)), v) 
+            self.assertEqual(type(getattr(o, k, None)), v)
 
     # @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file', "can't run if\
     #                  storage is set to file")
