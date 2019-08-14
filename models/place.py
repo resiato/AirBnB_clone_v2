@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This is the place class"""
-from sqlalchemy import String, DateTime,
-from sqlalchemy import Column, ForeignKey, Integer,
+from sqlalchemy import String, DateTime
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy import Float, Table
 from sqlalchemy.orm import relationship
 import models
@@ -66,7 +66,7 @@ class Place(BaseModel, Base):
         def amenities(self):
             """Getter attribute in case of file storage"""
             return [amenity for amenity in models.storage.all(Amenity)
-                    if amenity.id == self.amenity_id]
+                    if amenity.id == self.amenity_ids]
 
         @amenities.setter
         def amenities(self, obj):

@@ -53,11 +53,12 @@ class DBStorage():
     def new(self, obj):
         """Add the object to the current
         database session (self.__session)"""
-        dic = obj.to_dict()
-        cls = dic['__class__']
-        dic.pop('__class__', None)
-        o = eval(cls)(**dic)
-        self.__session.add(o)
+        # dic = obj.to_dict()
+        # cls = dic['__class__']
+        # dic.pop('__class__', None)
+        # o = eval(cls)(**dic)
+        # self.__session.add(o)
+        self.__session.add(obj)
 
     def save(self):
         """Commit all changes of the current

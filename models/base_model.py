@@ -15,7 +15,8 @@ class BaseModel:
     for other classes
     """
 
-    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    id = Column(String(60), unique=True, nullable=False,
+                primary_key=True, default=str(uuid.uuid4()))
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -71,6 +72,7 @@ class BaseModel:
             returns a dictionary of all the key values in __dict__
         """
         my_dict = self.__dict__.copy()
+        print(my_dict)
         my_dict["__class__"] = type(self).__name__
         my_dict["created_at"] = my_dict["created_at"].isoformat()
         my_dict["updated_at"] = my_dict["updated_at"].isoformat()
