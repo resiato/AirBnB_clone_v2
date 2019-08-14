@@ -18,18 +18,16 @@ import pep8
 class TestDBStorage(unittest.TestCase):
     '''this will test the DBStorage'''
 
-    @classmethod
-    def setUpClass(cls):
+    def setUp(self):
         """set up for test"""
         if getenv("HBNB_TYPE_STORAGE") == "db":
-            cls.db = MySQLdb.connect(getenv("HBNB_MYSQL_HOST"),
+            self.db = MySQLdb.connect(getenv("HBNB_MYSQL_HOST"),
                                      getenv("HBNB_MYSQL_USER"),
                                      getenv("HBNB_MYSQL_PWD"),
                                      getenv("HBNB_MYSQL_DB"))
-            cls.cursor = cls.db.cursor()
+            self.cursor = self.db.cursor()
 
-    @classmethod
-    def teardown(cls):
+    def tearDown(self):
         """at the end of the test this will tear it down"""
         if getenv("HBNB_TYPE_STORAGE") == "db":
             self.db.close()
@@ -74,3 +72,18 @@ class TestDBStorage(unittest.TestCase):
         self.assertFalse(k1 in dic2.keys())
         self.assertFalse(k in dic2.keys())
         self.assertFalse(k2 in dic.keys())
+
+    def test_new_DBStorage(self):
+        """Tests for new() method"""
+        storage.reload()
+        self.cursor.execute("SELECT * FROM states")
+        nb = self.cursor.fetchall()
+        # print(len(nb))
+        # print(nb)
+        s = State(name="Oregon")
+        s.save()
+        self.cursor.execute("SELECT * FROM states")
+        nb1 = self.cursor.fetchall()
+        # print(len(nb1))
+        # print(nb1)
+        # self.assertEqual(nb - nb1, 1)
