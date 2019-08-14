@@ -112,9 +112,6 @@ class TestConsole(unittest.TestCase):
             id = f.getvalue()[:-1]
             self.assertEqual(len(id), 36)
         with patch('sys.stdout', new=StringIO()) as f:
-            self.consol.onecmd("show City {}".format(id))
-            self.assertTrue("'name': 'San Francisco'" in f.getvalue())
-        with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd('create Place latitude=7.89')
             id = f.getvalue()[:-1]
             self.assertEqual(len(id), 36)
