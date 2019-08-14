@@ -16,7 +16,7 @@ class BaseModel:
     """
 
     id = Column(String(60), unique=True, nullable=False,
-                primary_key=True, default=str(uuid.uuid4()))
+                primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -36,6 +36,13 @@ class BaseModel:
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, value)
+            if "id" not in kwargs.keys():
+                setattr(self, "id", str(uuid.uuid4()))
+            time = datetime.now()
+            if "created_at" not in kwargs.keys():
+                setattr(self, "created_at", time)
+            if "updated_at" not in kwargs.keys():
+                setattr(self, "updated_at", time)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
