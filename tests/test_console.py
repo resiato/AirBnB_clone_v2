@@ -5,6 +5,7 @@ from unittest.mock import patch
 from io import StringIO
 import pep8
 import os
+from os import getenv
 import json
 import console
 import tests
@@ -72,6 +73,8 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("quit")
             self.assertEqual('', f.getvalue())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == "db",
+                     "can't run if storage is db")
     def test_create(self):
         """Test create command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -89,6 +92,8 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "[[User]", f.getvalue()[:7])
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == "db",
+                     "can't run if storage is db")
     def test_create_v2(self):
         """Test create command with parameters."""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -101,7 +106,9 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "[State]", f.getvalue()[:7])
         with patch('sys.stdout', new=StringIO()) as f:
-            self.consol.onecmd('create City name="San_Francisco"')
+            self.consol\
+                .onecmd('create City name="San_Francisco state_id="{}"'
+                .format(id))
             id = f.getvalue()[:-1]
             self.assertEqual(len(id), 36)
         with patch('sys.stdout', new=StringIO()) as f:

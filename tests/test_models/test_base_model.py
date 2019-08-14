@@ -20,17 +20,19 @@ class TestBaseModel(unittest.TestCase):
         cls.base = BaseModel()
         cls.base.name = "Kev"
         cls.base.num = 20
-        # cls.db = MySQLdb.connect(getenv("HBNB_MYSQL_HOST"),
-        #                      getenv("HBNB_MYSQL_USER"),
-        #                      getenv("HBNB_MYSQL_PWD"),
-        #                      getenv("HBNB_MYSQL_DB"))
-        # cls.cursor = cls.db.cursor()
+        if getenv("HBNB_TYPE_STORAGE") == "db":
+            cls.db = MySQLdb.connect(getenv("HBNB_MYSQL_HOST"),
+                                     getenv("HBNB_MYSQL_USER"),
+                                     getenv("HBNB_MYSQL_PWD"),
+                                     getenv("HBNB_MYSQL_DB"))
+            cls.cursor = cls.db.cursor()
 
     @classmethod
     def teardown(cls):
         """at the end of the test this will tear it down"""
         del cls.base
-        # self.db.close()
+        if getenv("HBNB_TYPE_STORAGE") == "db":
+            self.db.close()
 
     def tearDown(self):
         """teardown"""
