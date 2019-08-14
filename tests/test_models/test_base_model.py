@@ -97,19 +97,5 @@ class TestBaseModel(unittest.TestCase):
         base_dict = self.base.to_dict()
         self.assertFalse('_sa_instance_state' in base_dict.keys())
 
-#    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'file', "can't run if\
-#                     storage is set to file")
-#    def test_delete_v2(self):
-#        """Test the delete() method v2"""
-#        s = State(name="California")
-#        storage.new(s)
-#        storage.save()
-#        nb = self.cursor.execute("SELECT COUNT(*) FROM states;")
-#        print(nb)
-#        storage.delete(s)
-#        nb1 = self.cursor.execute("SELECT COUNT(*) FROM states;")
-#        print(nb1)
-#        self.assertEqual(nb - nb1, 1)
-
 if __name__ == "__main__":
     unittest.main()
