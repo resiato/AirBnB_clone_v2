@@ -79,7 +79,6 @@ class BaseModel:
             returns a dictionary of all the key values in __dict__
         """
         my_dict = self.__dict__.copy()
-        print(my_dict)
         my_dict["__class__"] = type(self).__name__
         my_dict["created_at"] = my_dict["created_at"].isoformat()
         my_dict["updated_at"] = my_dict["updated_at"].isoformat()
