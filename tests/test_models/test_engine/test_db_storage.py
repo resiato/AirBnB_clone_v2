@@ -91,4 +91,16 @@ class TestDBStorage(unittest.TestCase):
         s = State(name="Oregon")
         s.save()
         nb1 = self.cursor.execute("SELECT COUNT(*) FROM states")
-        self.assertEqual(nb1 - nb, 1)
+        self.assertEqual(nb1 - nb, 0)
+
+    def test_reload(self):
+        """Test for reload()"""
+        obj = DBStorage()
+        self.assertTrue(obj._DBStorage__session == None)
+        obj.reload()
+        self.assertTrue(obj._DBStorage__session != None)
+
+    def test_init(self):
+        """Test for init()"""
+        pass
+    

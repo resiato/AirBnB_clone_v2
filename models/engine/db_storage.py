@@ -53,11 +53,6 @@ class DBStorage():
     def new(self, obj):
         """Add the object to the current
         database session (self.__session)"""
-        # dic = obj.to_dict()
-        # cls = dic['__class__']
-        # dic.pop('__class__', None)
-        # o = eval(cls)(**dic)
-        # self.__session.add(o)
         self.__session.add(obj)
 
     def save(self):
@@ -69,7 +64,6 @@ class DBStorage():
         """Delete from the current database session obj if not None"""
         if obj:
             self.__session.delete(obj)
-            self.save()
 
     def reload(self):
         """Create the current database session (self.__session) from
