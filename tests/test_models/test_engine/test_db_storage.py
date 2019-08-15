@@ -102,3 +102,6 @@ class TestDBStorage(unittest.TestCase):
         self.assertTrue(obj._DBStorage__session is None)
         obj.reload()
         self.assertTrue(obj._DBStorage__session is not None)
+
+if __name__ == "__main__":
+    unittest.main()

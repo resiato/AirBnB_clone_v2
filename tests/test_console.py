@@ -137,9 +137,9 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("show User {}".format(id))
             print(f.getvalue())
-            # self.assertTrue("'email': 'ilovetim@google.com'" in f.getvalue())
-            # self.assertTrue("'password': 'timisboss'" in f.getvalue())
-            # self.assertTrue("'first_name': 'Farrukh'" in f.getvalue())
+            self.assertTrue("'email': 'ilovetim@google.com'" in f.getvalue())
+            self.assertTrue("'password': 'timisboss'" in f.getvalue())
+            self.assertTrue("'first_name': 'Farrukh'" in f.getvalue())
 
     def test_show(self):
         """Test show command inpout"""
@@ -251,7 +251,7 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "** no instance found **\n", f.getvalue())
 
-    def test_destroy(self):
+    def test_z_destroy(self):
         """Test alternate destroy command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("Galaxy.destroy()")
