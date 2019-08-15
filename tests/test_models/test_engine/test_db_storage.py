@@ -93,14 +93,12 @@ class TestDBStorage(unittest.TestCase):
         nb1 = self.cursor.execute("SELECT COUNT(*) FROM states")
         self.assertEqual(nb1 - nb, 0)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'db',
+                     "can't run if storage is file")
     def test_reload(self):
         """Test for reload()"""
         obj = DBStorage()
-        self.assertTrue(obj._DBStorage__session == None)
+        self.assertTrue(obj._DBStorage__engine is not None)
+        self.assertTrue(obj._DBStorage__session is None)
         obj.reload()
-        self.assertTrue(obj._DBStorage__session != None)
-
-    def test_init(self):
-        """Test for init()"""
-        pass
-    
+        self.assertTrue(obj._DBStorage__session is not None)
