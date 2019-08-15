@@ -87,15 +87,8 @@ class TestDBStorage(unittest.TestCase):
                      "can't run if storage is file")
     def test_new_DBStorage(self):
         """Tests for new() method"""
-        storage.reload()
-        self.cursor.execute("SELECT * FROM states")
-        nb = self.cursor.fetchall()
-        # print(len(nb))
-        # print(nb)
+        nb = self.cursor.execute("SELECT COUNT(*) FROM states")
         s = State(name="Oregon")
         s.save()
-        self.cursor.execute("SELECT * FROM states")
-        nb1 = self.cursor.fetchall()
-        # print(len(nb1))
-        # print(nb1)
-        # self.assertEqual(nb - nb1, 1)
+        nb1 = self.cursor.execute("SELECT COUNT(*) FROM states")
+        self.assertEqual(nb1 - nb, 1)
