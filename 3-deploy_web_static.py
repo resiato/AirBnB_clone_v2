@@ -19,11 +19,14 @@ env.hosts = ['35.190.145.187', '35.196.156.157']
 def do_pack():
     """Function to compress files in an archive"""
     local("mkdir -p versions")
-    result = local("tar -cvzf versions/web_static_{}.tgz web_static"
-                   .format(datetime.strftime(datetime.now(), "%Y%m%dT%H%M%S")))
+    filename = "versions/web_static_{}.tgz".format(datetime.strftime(
+                                                   datetime.now(),
+                                                   "%Y%m%dT%H%M%S"))
+    result = local("tar -cvzf {} web_static"
+                   .format(filename))
     if result.failed:
         return None
-    return result
+    return filename
 
 
 def do_deploy(archive_path):
@@ -69,7 +72,7 @@ def do_deploy(archive_path):
 def deploy():
     """Creates and distributes an archive to a web server"""
     filepath = do_pack()
-    if not filepath:
+    if filepath is None:
         return False
     d = do_deploy(filepath)
     return d
