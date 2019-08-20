@@ -1,72 +1,28 @@
 # puppet manifest preparing a server for static content deployment
 exec { 'apt-get-update':
-  command => '/usr/bin/apt-get update',
+  command => '/usr/bin/env apt-get -y update',
 }
-
--> package { 'nginx':
-  ensure => installed,
+-> exec {'b':
+  command => '/usr/bin/env apt-get -y install nginx',
 }
-
--> file { '/data':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
+-> exec {'c':
+  command => '/usr/bin/env mkdir -p /data/web_static/releases/test/',
 }
-
--> file { '/data/web_static':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
+-> exec {'d':
+  command => '/usr/bin/env mkdir -p /data/web_static/releases/shared/',
 }
-
--> file { '/data/web_static/releases':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
+-> exec {'e':
+  command => '/usr/bin/env echo "Puppet x Holberton School" > /data/web_static/releases/test/index.html',
 }
-
--> file { '/data/web_static/releases/test':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
+-> exec {'f':
+  command => '/usr/bin/env ln -sf /data/web_static/releases/test /data/web_static/current',
 }
-
--> file { '/data/web_static/shared':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
+-> exec {'g':
+  command => '/usr/bin/env chown -R ubuntu:ubuntu /data',
 }
-
--> file { '/data/web_static/releases/test/index.html':
-  ensure  => 'present',
-  content => '<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>',
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
+-> exec {'h':
+  command => '/usr/bin/env sed -i "/listen 80 default_server/a location /hbnb_static/ { alias /data/web_static/current/;}" /etc/nginx/sites-available/default',
 }
-
--> file { '/data/web_static/current':
-  ensure => 'link',
-  target => '/data/web_static/releases/test',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
-  force  => yes,
-}
-
--> file_line { 'a':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'listen 80 default_server;',
-  line   => 'location /hbnb_static/ { alias /data/web_static/current/;}',
-
-}
-
--> service { 'nginx':
-  ensure  => running,
-  require => Package['nginx'],
+-> exec {'h':
+  command => '/usr/bin/env service nginx restart',
 }
