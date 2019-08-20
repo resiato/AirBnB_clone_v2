@@ -86,7 +86,7 @@ def do_clean(number=0):
     dir_server = run("ls -1t /data/web_static/releases")
     dir_server_names = dir_server.split("\n")
     n = int(number)
-    if in (0, 1):
+    if n in (0, 1):
         n = 1
     for i in file_names[n:]:
         local("rm versions/{}".format(i))
