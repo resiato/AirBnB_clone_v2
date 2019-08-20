@@ -3,50 +3,41 @@ exec { 'apt-get-update':
   command => '/usr/bin/apt-get update',
 }
 
-package { 'nginx':
-  ensure  => installed,
-  require => Exec['apt-get-update'],
+-> package { 'nginx':
+  ensure => installed,
 }
 
-file { '/data':
+-> file { '/data':
   ensure => 'directory',
   owner  => 'ubuntu',
   group  => 'ubuntu',
 }
 
-file { '/data/web_static':
+-> file { '/data/web_static':
   ensure => 'directory',
   owner  => 'ubuntu',
   group  => 'ubuntu',
 }
 
-file { '/data/web_static/releases':
+-> file { '/data/web_static/releases':
   ensure => 'directory',
   owner  => 'ubuntu',
   group  => 'ubuntu',
 }
 
-file { '/data/web_static/releases/test':
+-> file { '/data/web_static/releases/test':
   ensure => 'directory',
   owner  => 'ubuntu',
   group  => 'ubuntu',
 }
 
-file { '/data/web_static/shared':
+-> file { '/data/web_static/shared':
   ensure => 'directory',
   owner  => 'ubuntu',
   group  => 'ubuntu',
 }
 
-file_line { 'a':
-  ensure  => 'present',
-  path    => '/etc/nginx/sites-available/default',
-  after   => 'listen 80 default_server;',
-  line    => 'location /hbnb_static/ { alias /data/web_static/current/;}',
-  require => Package['nginx'],
-}
-
-file { '/data/web_static/releases/test/index.html':
+-> file { '/data/web_static/releases/test/index.html':
   ensure  => 'present',
   content => '<html>
   <head>
@@ -59,7 +50,7 @@ file { '/data/web_static/releases/test/index.html':
   group   => 'ubuntu',
 }
 
-file { '/data/web_static/current':
+-> file { '/data/web_static/current':
   ensure => 'link',
   target => '/data/web_static/releases/test',
   owner  => 'ubuntu',
@@ -67,7 +58,15 @@ file { '/data/web_static/current':
   force  => yes,
 }
 
-service { 'nginx':
+-> file_line { 'a':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'listen 80 default_server;',
+  line   => 'location /hbnb_static/ { alias /data/web_static/current/;}',
+
+}
+
+-> service { 'nginx':
   ensure  => running,
   require => Package['nginx'],
 }
