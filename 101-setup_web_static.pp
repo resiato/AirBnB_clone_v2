@@ -17,12 +17,12 @@ exec { 'apt-get-update':
 -> exec {'f':
   command => '/usr/bin/env ln -sf /data/web_static/releases/test /data/web_static/current',
 }
--> exec {'g':
-  command => '/usr/bin/env chown -R ubuntu:ubuntu /data',
-}
 -> exec {'h':
   command => '/usr/bin/env sed -i "/listen 80 default_server/a location /hbnb_static/ { alias /data/web_static/current/;}" /etc/nginx/sites-available/default',
 }
 -> exec {'i':
   command => '/usr/bin/env service nginx restart',
+}
+-> exec {'g':
+  command => '/usr/bin/env chown -R ubuntu:ubuntu /data',
 }
