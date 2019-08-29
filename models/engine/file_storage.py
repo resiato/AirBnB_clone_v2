@@ -69,6 +69,10 @@ class FileStorage:
                 self.__objects.pop(key, None)
         self.save()
 
+    def close(self):
+        """Deserializes the JSON file to objects"""
+        self.reload()
+
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
         from models.base_model import BaseModel

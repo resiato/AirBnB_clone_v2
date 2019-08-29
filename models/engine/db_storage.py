@@ -35,7 +35,7 @@ class DBStorage():
         """Returns dictionary with all objects depending
         of the class name (argument cls)"""
         if cls:
-            objs = self.__session.query(cls)
+            objs = self.__session.query(eval(cls))
         else:
             objs = self.__session.query(State).all()
             objs += self.__session.query(City).all()
@@ -80,6 +80,10 @@ class DBStorage():
                                       expire_on_commit=False)
         Session = scoped_session(self.__session)
         self.__session = Session()
+
+    def close(self):
+        """Removes the session"""
+        self.__session.close()
 
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
