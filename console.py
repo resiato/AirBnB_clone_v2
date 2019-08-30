@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in self.all_classes:
                 print("** class doesn't exist **")
                 return
-            objects = storage.all(eval(line))
+            objects = storage.all(line)
         my_list = []
         if not line:
             objects = storage.all()
