@@ -10,7 +10,9 @@ app = Flask(__name__)
 
 @app.route('/cities_by_states', strict_slashes=False)
 def cities():
-    """Returns a rendered html template"""
+    """Returns a rendered html template
+    at the /cities_by_states route,
+    listing the cities by states"""
     return render_template('8-cities_by_states.html',
                            states=storage.all('State').values())
 
