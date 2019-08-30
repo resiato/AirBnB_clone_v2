@@ -109,3 +109,11 @@ Ex:
 Additionally, the console supports `<class name>.<command>(<parameters>)` syntax.
 Ex:
 `City.show(my_city_id)`
+
+# Tests
+
+All unittests can be found in the [tests](./tests) directory.
+
+# Author
+
+Laura Roudge
