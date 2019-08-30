@@ -1,9 +1,40 @@
 # HBnB - Holberton School AirBnB clone
 
+<p align="center">
+    <img src="https://i.imgur.com/JOhaZ5m.png">
+</p>
+
+# Description
+
+The goal of the HBnB project is to deploy a simple clone of AirBnB on our own server.
+This project is built over 4 months as part of the curriculum of the first year at Holberton School.
+
+At the end of the 4 months, the project will have:
+- A command interpreter to manipulate data without a visual interface, like in a Shell (perfect for development and debugging)
+- A website (the front-end) that shows the final product to everybody: static and dynamic
+- A database or files that store data (data = objects)
+- An API that provides a communication interface between the front-end and the data (retrieve, create, delete, update them)
+
+Here's a simple diagram of the entire stack of the final product:
+
+<p>
+    <img src="https://imgur.com/sQ4tQRX">
+</p>
+
+# The Web Framework
+
+Flask is the web framework used for the HBnB project.
+In the [web_flask](./web_flask) are all the python scripts used to start a Flask app.
+
 # The Storage system
 
 HBnB has two storage types: a File Storage and a DataBase storage.
 The folder [engine](./models/engine/) contains those storage types definitions.
+Here is a representation of all the data.
+
+<p>
+    <img src="https://imgur.com/a/6pMp3R5">
+</p>
 
 ## File Storage
 
