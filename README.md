@@ -18,7 +18,7 @@ At the end of the 4 months, the project will have:
 Here's a simple diagram of the entire stack of the final product:
 
 <p>
-    <img src="https://imgur.com/sQ4tQRX">
+    <img src="https://i.imgur.com/sQ4tQRX.png">
 </p>
 
 # The Web Framework
@@ -30,10 +30,10 @@ In the [web_flask](./web_flask) are all the python scripts used to start a Flask
 
 HBnB has two storage types: a File Storage and a DataBase storage.
 The folder [engine](./models/engine/) contains those storage types definitions.
-Here is a representation of all the data.
+Here is a representation of all the data:
 
 <p>
-    <img src="https://imgur.com/a/6pMp3R5">
+    <img src="https://i.imgur.com/eNZMRuS.jpg">
 </p>
 
 ## File Storage
