@@ -55,6 +55,15 @@ A DBStorage class is defined in [db_storage.py](./models/engine/db_storage.py) a
 If the environment variable **HBNB_TYPE_STORAGE** is set to 'db', the [__init__.py](./models/__init__.py) file instantiates the DBStorage class called **storage**, followed by a call to the method reload() on that instance.
 This allows the storage to be reloaded automatically at initialization, which recovers the data from the defined database.
 
+To run any script with the DataBase storage, declare those environment variables:
+```
+HBNB_MYSQL_USER=hbnb_dev
+HBNB_MYSQL_PWD=hbnb_dev_pwd
+HBNB_MYSQL_HOST=localhost
+HBNB_MYSQL_DB=hbnb_dev_db
+HBNB_TYPE_STORAGE=db
+```
+
 # The Console
 
 This is the console /command interpreter for the Holberton Airbnb clone project. The console can be used to store objects in and retrieve objects from a JSON.
