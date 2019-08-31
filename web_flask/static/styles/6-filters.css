@@ -25,7 +25,6 @@ button:hover {
     display: inline-grid;
 }
 .filters h2 {
-    margin-left: 15%;
     margin-top: 0;
     margin-bottom: 5px;
     font-weight: 600;
@@ -62,7 +61,6 @@ button:hover {
     height: fit-content;
 }
 .amenities .popover {
-    padding: 20px 0;
     margin-left: -5px;
 }
 
