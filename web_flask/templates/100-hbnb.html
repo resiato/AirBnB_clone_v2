@@ -48,6 +48,7 @@
       </section>
       <section class="places">
         <h1>Places</h1>
+        {% autoescape false %}
         {% for place in places|sort(attribute='name') %}
           <article>
             <div class="title_box">
@@ -67,6 +68,7 @@
             </div>
         </article>
         {% endfor %}
+        {% endautoescape %}
       </section>
     </div>
     <footer>
