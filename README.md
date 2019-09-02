@@ -30,13 +30,19 @@ Usage:
 
 - Dump data in the MySQL database with [10-dump.sql](./10-dump.sql) or [100-dump.sql](./100-dump.sql), for scripts [10-hbnb_filters.py](.10-hbnb_filters.py) and [100-hbnb.py](./100-hbnb.py) respectively:
 ```
-cat 10-dump.sql | mysql -uroot -p
+cat 100-dump.sql | mysql -uroot -p
 ```
 
 - Set the environment variables and execute the Flask scripts like this:
 ```
-HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db python3 -m web_flask.10-hbnb_filters
+HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db python3 -m web_flask.100-hbnb
 ```
+
+- In the browser, type:
+```
+http://0.0.0.0:5000/hbnb
+```
+You should see the rendered web page!
 
 # The Storage system
 
