@@ -26,6 +26,18 @@ Here's a simple diagram of the entire stack of the final product:
 Flask is the web framework used for the HBnB project.
 In the [web_flask](./web_flask) are all the python scripts used to start a Flask app.
 
+Usage:
+
+- Dump data in the MySQL database with [10-dump.sql](./10-dump.sql) or [100-dump.sql](./100-dump.sql), for scripts [10-hbnb_filters.py](.10-hbnb_filters.py) and [100-hbnb.py](./100-hbnb.py) respectively:
+```
+cat 10-dump.sql | mysql -uroot -p
+```
+
+- Set the environment variables and execute the Flask scripts like this:
+```
+HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db python3 -m web_flask.10-hbnb_filters
+```
+
 # The Storage system
 
 HBnB has two storage types: a File Storage and a DataBase storage.
