@@ -35,7 +35,7 @@ class DBStorage():
         """Returns dictionary with all objects depending
         of the class name (argument cls)"""
         if cls:
-            objs = self.__session.query(eval(cls))
+            objs = self.__session.query(self.classes()[cls])
         else:
             objs = self.__session.query(State).all()
             objs += self.__session.query(City).all()
