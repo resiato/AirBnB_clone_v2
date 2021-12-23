@@ -1,4 +1,4 @@
-# HBnB - Holberton School AirBnB clone
+# BnB - AirBnB clone
 
 <p align="center">
     <img src="https://i.imgur.com/JOhaZ5m.png">
@@ -7,7 +7,6 @@
 # Description
 
 The goal of the HBnB project is to deploy a simple clone of AirBnB on our own server.
-This project is built over 4 months as part of the curriculum of the first year at [Holberton School](https://www.holbertonschool.com/).
 
 At the end of the 4 months, the project will have:
 - A command interpreter to manipulate data without a visual interface, like in a Shell (perfect for development and debugging)
@@ -143,4 +142,4 @@ All unittests can be found in the [tests](./tests) directory.
 
 # Author
 
-Laura Roudge
+Mercy Resiato Laitete
